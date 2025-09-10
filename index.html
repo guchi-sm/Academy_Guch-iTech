@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Selectors Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --gray: #adb5bd;
+            --code-bg: #2d2d2d;
+            --code-color: #f8f8f2;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            color: var(--warning);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--warning);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: white;
+            margin: 2rem auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            max-width: 900px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: var(--dark);
+        }
+        
+        .btn-warning:hover {
+            background: #ffc107;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-example {
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .practice-area {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin: 2rem 0;
+        }
+        
+        .practice-area h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .editor {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .editor {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .code-editor {
+            background: var(--code-bg);
+            color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .code-input {
+            background: #1e1e1e;
+            color: var(--code-color);
+            border: 1px solid #555;
+            border-radius: 4px;
+            padding: 1rem;
+            width: 100%;
+            min-height: 150px;
+            font-family: 'Courier New', monospace;
+            resize: vertical;
+        }
+        
+        .preview {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-height: 200px;
+        }
+        
+        .element {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #e9ecef;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .element.highlight {
+            background: var(--success);
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .element.para {
+            background: #d8e2dc;
+        }
+        
+        .element.heading {
+            background: #ffcad4;
+        }
+        
+        .element.link {
+            background: #cbf3f0;
+            color: #2ec4b6;
+            text-decoration: underline;
+        }
+        
+        .element.btn-el {
+            background: var(--primary);
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--gray);
+        }
+        
+        .selector-list {
+            margin: 1rem 0;
+        }
+        
+        .selector-item {
+            padding: 0.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .selector-name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--success);
+            width: 30%;
+            border-radius: 3px;
+        }
+        
+        .challenge {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            background: #f1f3f5;
+            border-radius: 5px 5px 0 0;
+            margin-right: 0.2rem;
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 0 0 5px 5px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .manipulation-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .demo-element {
+            padding: 1rem;
+            background: #e9ecef;
+            border-radius: 5px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .demo-btn {
+            padding: 0.5rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .demo-btn:hover {
+            background: var(--secondary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-code"></i>
+                    <span>CSS Selectors |Guchi Academy</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="active">Home</a>
+                    <a href="#">Learn</a>
+                    <a href="#">Practice</a>
+                    <a href="#">Resources</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <h1>Master CSS Selectors</h1>
+            <p>Learn how to target HTML elements with precision using CSS selectors. Understand the different types of selectors and how to combine them for powerful styling.</p>
+            <a href="#practice" class="btn">Start Practicing</a>
+        </section>
+
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" onclick="switchTab(0)">Basic Selectors</div>
+            <div class="tab" onclick="switchTab(1)">Combinators</div>
+            <div class="tab" onclick="switchTab(2)">Pseudo Selectors</div>
+            <div class="tab" onclick="switchTab(3)">Manipulation Examples</div>
+        </div>
+
+        <div class="tab-content active">
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-asterisk"></i> Element Selector
+                    </div>
+                    <div class="card-body">
+                        <p>Selects all elements of the specified type.</p>
+                        <div class="card-example">
+                            p { color: blue; }<br>
+                            div { padding: 10px; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('p { background: #4cc9f0; color: white; }')">Try it on paragraphs</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-circle"></i> Class Selector
+                    </div>
+                    <div class="card-body">
+                        <p>Selects elements with a specific class attribute.</p>
+                        <div class="card-example">
+                            .highlight { background: yellow; }<br>
+                            .button { padding: 10px 20px; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('.para { background: #d8e2dc; }')">Try it on .para elements</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-id-badge"></i> ID Selector
+                    </div>
+                    <div class="card-body">
+                        <p>Selects a single element with a specific id attribute.</p>
+                        <div class="card-example">
+                            #header { height: 100px; }<br>
+                            #main-content { width: 80%; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('#special { background: #f72585; color: white; }')">Try it on #special</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-sitemap"></i> Descendant Combinator
+                    </div>
+                    <div class="card-body">
+                        <p>Selects elements that are descendants of another element.</p>
+                        <div class="card-example">
+                            div p { color: red; }<br>
+                            .container .item { margin: 10px; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('div span { background: #3a0ca3; color: white; }')">Try it on div span</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-angle-right"></i> Child Combinator
+                    </div>
+                    <div class="card-body">
+                        <p>Selects direct children of an element.</p>
+                        <div class="card-example">
+                            ul > li { list-style: square; }<br>
+                            div > p { font-weight: bold; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('div > .element { border: 2px solid #4361ee; }')">Try it on direct children</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-plus"></i> Adjacent Sibling
+                    </div>
+                    <div class="card-body">
+                        <p>Selects an element that is immediately after another element.</p>
+                        <div class="card-example">
+                            h2 + p { margin-top: 0; }<br>
+                            .heading + .content { padding: 10px; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('.heading + .element { background: #ffd166; }')">Try it on adjacent siblings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="cards-container">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-mouse-pointer"></i> :hover Pseudo-class
+                    </div>
+                    <div class="card-body">
+                        <p>Selects an element when mouse over it.</p>
+                        <div class="card-example">
+                            a:hover { color: red; }<br>
+                            .button:hover { background: #333; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('.element:hover { transform: scale(1.1); background: #4cc9f0; }')">Try hover effect</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-child"></i> :nth-child Pseudo-class
+                    </div>
+                    <div class="card-body">
+                        <p>Selects elements based on their position.</p>
+                        <div class="card-example">
+                            li:nth-child(odd) { background: #eee; }<br>
+                            tr:nth-child(2n) { background: #f5f5f5; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('.element:nth-child(2n) { background: #f72585; color: white; }')">Try nth-child(2n)</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-circle"></i> :not Pseudo-class
+                    </div>
+                    <div class="card-body">
+                        <p>Selects elements that do not match a selector.</p>
+                        <div class="card-example">
+                            div:not(.container) { border: 1px solid; }<br>
+                            p:not(:first-child) { margin-top: 10px; }
+                        </div>
+                        <button class="btn demo-btn" onclick="applySelector('.element:not(.para) { opacity: 0.7; }')">Try :not(.para)</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <h2>Element Manipulation Examples</h2>
+            <p>See how CSS selectors can be used to manipulate elements in various ways:</p>
+            
+            <div class="manipulation-demo">
+                <div class="demo-element" id="demo1">Element 1</div>
+                <div class="demo-element" id="demo2">Element 2</div>
+                <div class="demo-element special" id="demo3">Element 3</div>
+                <div class="demo-element special" id="demo4">Element 4</div>
+            </div>
+            
+            <div class="demo-controls">
+                <button class="demo-btn" onclick="applyManipulation('color', '#4361ee')">Change text color</button>
+                <button class="demo-btn" onclick="applyManipulation('background', '#4cc9f0')">Change background</button>
+                <button class="demo-btn" onclick="applyManipulation('transform', 'rotate(5deg)')">Apply rotation</button>
+                <button class="demo-btn" onclick="applyManipulation('border', '2px solid #f72585')">Add border</button>
+                <button class="demo-btn" onclick="applyManipulation('opacity', '0.7')">Change opacity</button>
+                <button class="demo-btn" onclick="applyManipulation('border-radius', '15px')">Round corners</button>
+                <button class="demo-btn" onclick="applyManipulation('box-shadow', '0 4px 8px rgba(0,0,0,0.2)')">Add shadow</button>
+                <button class="demo-btn" onclick="resetDemo()">Reset all</button>
+            </div>
+            
+            <div class="card-example">
+                #demo1 { color: blue; }<br>
+                .special { background: #4cc9f0; }<br>
+                .demo-element:hover { transform: scale(1.05); }
+            </div>
+        </div>
+
+        <section id="practice" class="practice-area">
+            <h2>Practice Area</h2>
+            <div class="editor">
+                <div class="code-editor">
+                    <h3>Write your CSS here:</h3>
+                    <textarea class="code-input" placeholder="Try: .element { background: #4361ee; }">.element {
+  background: #e9ecef;
+}</textarea>
+                    <button class="btn" onclick="applyStyles()">Apply Styles</button>
+                    <button class="btn btn-warning" onclick="resetStyles()">Reset Styles</button>
+                </div>
+                <div class="preview">
+                    <h3>Preview:</h3>
+                    <div class="element">Div Element</div>
+                    <div class="element para">Paragraph</div>
+                    <div class="element heading">Heading</div>
+                    <div class="element link">Link</div>
+                    <div class="element btn-el">Button</div>
+                    <div class="element" id="special">Special ID</div>
+                    <div class="element">
+                        <span>Nested Span</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="practice-area">
+            <h2>Selector Challenges</h2>
+            <div class="challenges">
+                <div class="challenge">
+                    <p>1. Select all elements with class "para" and make their background color #d8e2dc</p>
+                    <button class="btn" onclick="showAnswer(1)">Show Answer</button>
+                    <p id="answer1" class="card-example" style="display: none;">.para { background: #d8e2dc; }</p>
+                </div>
+                <div class="challenge">
+                    <p>2. Select the element with id "special" and make its text color #f72585</p>
+                    <button class="btn" onclick="showAnswer(2)">Show Answer</button>
+                    <p id="answer2" class="card-example" style="display: none;">#special { color: #f72585; }</p>
+                </div>
+                <div class="challenge">
+                    <p>3. Select all elements when hovered and add a scale transform</p>
+                    <button class="btn" onclick="showAnswer(3)">Show Answer</button>
+                    <p id="answer3" class="card-example" style="display: none;">.element:hover { transform: scale(1.1); }</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>CSS Selectors Academy &copy; 2025 | Learn modern CSS techniques</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching functionality
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach((tab, index) => {
+                if (index === tabIndex) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
+            
+            tabContents.forEach((content, index) => {
+                if (index === tabIndex) {
+                    content.classList.add('active');
+                } else {
+                    content.classList.remove('active');
+                }
+            });
+        }
+        
+        // Apply CSS from code editor
+        function applyStyles() {
+            const cssCode = document.querySelector('.code-input').value;
+            const styleBlock = document.createElement('style');
+            styleBlock.textContent = cssCode;
+            document.head.appendChild(styleBlock);
+        }
+        
+        // Reset all applied styles
+        function resetStyles() {
+            const styles = document.querySelectorAll('style');
+            styles.forEach(style => {
+                if (!style.getAttribute('data-permanent')) {
+                    style.remove();
+                }
+            });
+        }
+        
+        // Show answer for challenges
+        function showAnswer(num) {
+            const answer = document.getElementById('answer' + num);
+            if (answer.style.display === 'none') {
+                answer.style.display = 'block';
+            } else {
+                answer.style.display = 'none';
+            }
+        }
+        
+        // Apply selector example
+        function applySelector(cssRule) {
+            const styleBlock = document.createElement('style');
+            styleBlock.textContent = cssRule;
+            document.head.appendChild(styleBlock);
+            
+            // Auto-populate the code editor
+            document.querySelector('.code-input').value = cssRule;
+        }
+        
+        // Element manipulation examples
+        function applyManipulation(property, value) {
+            const elements = document.querySelectorAll('.demo-element');
+            elements.forEach(el => {
+                el.style[property] = value;
+            });
+        }
+        
+        function resetDemo() {
+            const elements = document.querySelectorAll('.demo-element');
+            elements.forEach(el => {
+                el.removeAttribute('style');
+            });
+        }
+        
+        // Add some interactive examples on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.element');
+            elements.forEach(el => {
+                el.addEventListener('mouseover', () => {
+                    el.classList.add('highlight');
+                });
+                el.addEventListener('mouseout', () => {
+                    el.classList.remove('highlight');
+                });
+            });
+            
+            // Add permanent styles for the page
+            const permanentStyles = `
+                .tab-content { display: none; }
+                .tab-content.active { display: block; }
+            `;
+            const styleElement = document.createElement('style');
+            styleElement.setAttribute('data-permanent', 'true');
+            styleElement.textContent = permanentStyles;
+            document.head.appendChild(styleElement);
+        });
+    </script>
+</body>
+</html>
